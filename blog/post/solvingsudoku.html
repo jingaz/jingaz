@@ -26,7 +26,7 @@
         <div id="post">
             <div class="main">
                 <h3 class="date" id="date_for_now">2020/4/6</h3>
-                <h1 id="title_text">解数独.md</h1>
+                <h1 id="title_text">解数独</h1>
 
                 <div id="content">
                     <p>今天在<a href="https://leetcode-cn.com/problems/sudoku-solver"
@@ -221,21 +221,6 @@ scanning:
     print_Sudoku(board);
 }</code></pre>
                 </div>
-                <script>
-                    document.getElementById('date_for_now').innerHTML = new Date().toLocaleDateString();
-                    function import_file() {
-                        var selectedFile = document.getElementById("files").files[0];//获取读取的File对象
-                        document.getElementById('title_text').innerHTML = selectedFile.name;//读取选中文件的文件名;
-                        var reader = new FileReader();//这里是核心！！！读取操作就是由它完成的。
-                        reader.readAsText(selectedFile);//读取文件的内容
-                        reader.onload = function () {
-                            document.getElementById('content').innerHTML = marked(this.result,
-                                { highlight: (code) => hljs.highlightAuto(code).value });//当读取完成之后会回调这个函数，然后此时文件的内容存储到了result中。直接操作即可。
-                        };
-                    }
-                </script>
-
-
             </div>
         </div>
     </div>
