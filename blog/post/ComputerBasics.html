@@ -1,0 +1,1206 @@
+<html lang="cmn-hans">
+
+<head>
+    <meta content="text/html; charset=UTF-8">
+    <meta name="author" content="liujing">
+    <title>渲染预览</title>
+    <link rel="stylesheet" type="text/css" href="../assets/index.css">
+</head>
+
+<body>
+    <div id="header">
+        <h1 id="title"><a href="https://jingaz.github.io">jingaz</a></h1>
+        <div class="links">
+            <a href="" target="_blank">
+                <div class="iconfont icon-rss"></div>
+            </a>
+            <a href="https://github.com/jingaz" target="_blank">
+                <div class="iconfont icon-github"></div>
+            </a>
+            <a href="https://jingaz.github.io/blog/post/about.html" target="_blank">
+                <div class="iconfont icon-author"></div>
+            </a>
+        </div>
+    </div>
+    <div id="main">
+        <div id="post">
+            <div class="main">
+                <h3 class="date" id="date_for_now">2021/4/18</h3>
+                <h1 id="title_text">计算机基础</h1>
+                <div id="content">
+                    <h3 id="操作系统"><a href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F">操作系统</a></h3>
+                    <ol>
+                        <li><a
+                                href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB">进程和线程之间的区别</a>
+                        </li>
+                        <li><a href="#%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E6%96%B9%E5%BC%8F">线程同步方式</a></li>
+                        <li><a href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F">进程的通信方式</a></li>
+                        <li><a
+                                href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB">进程通信方式的区别</a>
+                        </li>
+                        <li><a
+                                href="#%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%8F%8A%E5%8D%B1%E5%AE%B3">缓冲区溢出的原因及危害</a>
+                        </li>
+                        <li><a href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%87%A0%E7%A7%8D%E7%8A%B6%E6%80%81">进程的几种状态</a></li>
+                        <li><a
+                                href="#%E5%88%86%E9%A1%B5%E5%92%8C%E5%88%86%E6%AE%B5%E7%9A%84%E5%8C%BA%E5%88%AB">分页和分段的区别</a>
+                        </li>
+                        <li><a
+                                href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E7%AD%96%E7%95%A5">操作系统进程调度的策略</a>
+                        </li>
+                        <li><a
+                                href="#%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E7%9A%84%E5%87%A0%E7%A7%8D%E6%9C%BA%E5%88%B6">进程同步的几种机制</a>
+                        </li>
+                        <li><a href="#%E6%AD%BB%E9%94%81%E4%BA%A7%E7%94%9F%E7%9A%84%E6%9D%A1%E4%BB%B6">死锁产生的条件</a></li>
+                        <li><a href="#%E6%AD%BB%E9%94%81%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95">死锁的处理方法</a></li>
+                    </ol>
+                    <hr>
+                    <h3 id="计算机网络"><a href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C">计算机网络</a></h3>
+                    <ol>
+                        <li><a href="#http%E5%8D%8F%E8%AE%AE%E7%8A%B6%E6%80%81%E7%A0%81">HTTP协议状态码</a></li>
+                        <li><a href="#tcp/udp%E7%9A%84%E5%8C%BA%E5%88%AB">TCP/UDP的区别</a></li>
+                        <li><a
+                                href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%8F%8A%E5%AF%B9%E5%BA%94%E7%9A%84%E6%9C%8D%E5%8A%A1">常见的端口及对应的服务</a>
+                        </li>
+                        <li><a href="#tcp%E7%9A%84%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B">TCP的三次握手</a></li>
+                        <li><a href="#tcp%E7%9A%84%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B">TCP的四次挥手</a></li>
+                        <li><a
+                                href="#%E7%A7%81%E6%9C%89%EF%BC%88%E4%BF%9D%E7%95%99%E5%9C%B0%E5%9D%80%EF%BC%89">私有（保留地址）</a>
+                        </li>
+                        <li><a href="#ip%E5%9C%B0%E5%9D%80%E7%9A%84%E5%88%86%E7%B1%BB">IP地址的分类</a></li>
+                        <li><a
+                                href="#%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BE%93%E5%85%A5%E7%BD%91%E5%9D%80%E4%B9%8B%E5%90%8E%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B">在浏览器输入网址之后执行过程</a>
+                        </li>
+                        <li><a href="#arp%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B">ARP协议的工作过程</a>
+                        </li>
+                        <li><a href="#osi%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B">OSI七层模型</a></li>
+                        <li><a href="#tcp/ip%E5%9B%9B%E5%B1%82%E6%A8%A1%E5%9E%8B">TCP/IP四层模型</a></li>
+                        <li><a
+                                href="#%E8%BF%90%E8%A1%8C%E5%9C%A8tcp/udp%E5%8D%8F%E8%AE%AE%E4%B8%8A%E7%9A%84%E5%8D%8F%E8%AE%AE">运行在TCP/UDP协议上的协议</a>
+                        </li>
+                        <li><a
+                                href="#http%E5%8D%8F%E8%AE%AE%E5%8C%85%E6%8B%AC%E5%93%AA%E4%BA%9B%E8%AF%B7%E6%B1%82">HTTP协议包括哪些请求</a>
+                        </li>
+                        <li><a
+                                href="#tcp%E5%8D%8F%E8%AE%AE%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%BC%A0%E8%BE%93%E7%9A%84%E5%8F%AF%E9%9D%A0%E6%80%A7">TCP协议如何保证传输的可靠性</a>
+                        </li>
+                    </ol>
+                    <hr>
+                    <h3 id="数据结构和算法"><a
+                            href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95">数据结构和算法</a></h3>
+                    <ol>
+                        <li><a href="#%E9%93%BE%E8%A1%A8">链表</a></li>
+                        <li><a href="#%E6%A0%91">树</a></li>
+                        <li><a href="#%E5%93%88%E5%B8%8C%E8%A1%A8">哈希表</a></li>
+                        <li><a href="#%E6%8E%92%E5%BA%8F">排序</a></li>
+                        <li><a href="#%E9%9A%8F%E6%9C%BA">随机</a></li>
+                        <li><a href="#%E8%B4%AA%E5%BF%83">贪心</a></li>
+                        <li><a href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92">动态规划</a></li>
+                        <li><a href="#%E5%9B%BE%E7%AE%97%E6%B3%95">图算法</a></li>
+                    </ol>
+                    <hr>
+                    <h3 id="计算机组成原理"><a
+                            href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86">计算机组成原理</a></h3>
+                    <ol>
+                        <li><a
+                                href="#%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF%E7%9A%84%E4%B8%89%E7%A7%8D%E7%8A%B6%E6%80%81">数字电路的三种状态</a>
+                        </li>
+                        <li><a
+                                href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84">计算机系统层次结构</a>
+                        </li>
+                        <li><a href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87">计算机性能指标</a></li>
+                        <li><a
+                                href="#%E6%95%B0%E6%8D%AE%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%BF%90%E7%AE%97">数据的表示和运算</a>
+                        </li>
+                        <li><a href="#%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F">存储系统</a></li>
+                        <li><a href="#%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F">指令系统</a></li>
+                        <li><a href="#%E4%B8%AD%E5%A4%AE%E5%A4%84%E7%90%86%E5%99%A8">中央处理器</a></li>
+                        <li><a href="#%E6%80%BB%E7%BA%BF">总线</a></li>
+                        <li><a href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%B3%BB%E7%BB%9F">输入输出系统</a></li>
+                    </ol>
+                    <hr>
+                    <h3 id="数据库"><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></h3>
+                    <ol>
+                        <li><a href="#sql%E5%85%B7%E6%9C%89%E5%A6%82%E4%B8%8B%E4%BC%98%E7%82%B9">SQL的优点</a></li>
+                        <li><a href="#sql%E7%9A%84%E7%BB%84%E6%88%90">SQL的组成</a></li>
+                        <li><a href="#%E4%BE%8B%E5%AD%90">例子</a></li>
+                    </ol>
+                    <hr>
+                    <h3 id="操作系统-1">操作系统</h3>
+                    <h4 id="进程和线程之间的区别">进程和线程之间的区别</h4>
+                    <ul>
+                        <li><strong>进程</strong>是具有一定功能的程序关于某个数据集合上的一次运行活动，进程是系统进行资源调度和分配的一个独立单位</li>
+                        <li><strong>线程</strong>是进程的实体，是CPU调度和分派的基本单位，它是比进程更小的能独立运行的基本单位</li>
+                        <li>一个进程可以有多个线程，多个线程也可以并发执行</li>
+                    </ul>
+                    <h4 id="线程同步方式">线程同步方式</h4>
+                    <ul>
+                        <li><strong>互斥量</strong>：采用互斥对象机制，只有拥有互斥对象的线程才有访问公共资源的权限。因为互斥对象只有一个，所以可以保证公共资源不会被多个线程同时访问</li>
+                        <li><strong>信号量</strong>：它允许同一时刻多个线程访问同一资源，但是需要控制同一时刻访问此资源的最大线程数量</li>
+                        <li><strong>事件（信号）</strong>：通过通知操作的方式来保持多线程同步，还可以方便的实现多线程优先级的比较操作</li>
+                    </ul>
+                    <h4 id="进程的通信方式">进程的通信方式</h4>
+                    <ul>
+                        <li><strong>管道</strong>：管道可用于具有亲缘关系进程间的通信，允许一个进程和另一个与它有共同祖先的进程之间进行通信</li>
+                        <li><strong>命名管道</strong>：命名管道克服了管道没有名字的限制，因此，除具有管道所具有的功能外，它还允许无亲缘关系进程间的通信。命名管道在文件系统中有对应的文件名。命名管道通过命令mkfifo或系统调用mkfifo来创建
+                        </li>
+                        <li><strong>信号</strong>：信号是比较复杂的通信方式，用于通知接受进程有某种事件发生，除了用于进程间通信外，进程还可以发送信号给进程本身；linux除了支持Unix早期信号语义函数sigal外，还支持语义符合Posix.1标准的信号函数sigaction（实际上，该函数是基于BSD的，BSD为了实现可靠信号机制，又能够统一对外接口，用sigaction函数重新实现了signal函数）
+                        </li>
+                        <li><strong>消息队列</strong>：消息队列是消息的链表，包括Posix消息队列system
+                            V消息队列。有足够权限的进程可以向队列中添加消息，被赋予读权限的进程则可以读走队列中的消息。消息队列克服了信号承载信息量少，管道只能承载无格式字节流以及缓冲区大小受限等缺</li>
+                        <li><strong>信号量</strong>：是一个计数器，用来控制多个进程对资源的访问，它通常作为一种锁机制</li>
+                        <li><strong>共享内存</strong>：使得多个进程可以访问同一块内存空间，是最快的可用IPC形式。是针对其他通信机制运行效率较低而设计的。往往与其它通信机制，如信号量结合使用，来达到进程间的同步及互斥
+                        </li>
+                        <li><strong>内存映射</strong>：内存映射允许任何多个进程间通信，每一个使用该机制的进程通过把一个共享的文件映射到自己的进程地址空间来实现它</li>
+                        <li><strong>SOCKET</strong>：更为一般的进程间通信机制，可用于不同机器之间的进程间通信。起初是由Unix系统的BSD分支开发出来的，但现在一般可以移植到其它类Unix系统上：Linux和System
+                            V的变种都支持套接字</li>
+                    </ul>
+                    <h4 id="进程通信方式的区别">进程通信方式的区别</h4>
+                    <ul>
+                        <li><strong>管道</strong>：速度慢，容量有限</li>
+                        <li><strong>消息队列</strong>：容量受到系统限制，且要注意第一次读的时候，要考虑上一次没有读完数据的问题。</li>
+                        <li><strong>信号量</strong>：不能传递复杂消息，只能用来同步</li>
+                        <li><strong>共享内存区</strong>：能够很容易控制容量，速度快，但要保持同步，比如一个进程在写的时候，另一个进程要注意读写的问题，相当于线程中的线程安全，当然，共享内存区同样可以用作线程间通讯，不过没这个必要，线程间本来就已经共享了一块内存的。
+                        </li>
+                    </ul>
+                    <h4 id="缓冲区溢出的原因及危害">缓冲区溢出的原因及危害</h4>
+                    <ul>
+                        <li>缓冲区溢出是指当计算机向缓冲区填充数据时超出了缓冲区本身的容量，溢出的数据覆盖在合法数据上</li>
+                        <li>原因主要是程序中没有仔细检查用户输入</li>
+                        <li>危害：1、程序崩溃，导致拒绝额服务。2、跳转并且执行一段恶意代码</li>
+                    </ul>
+                    <h4 id="进程的几种状态">进程的几种状态</h4>
+                    <ul>
+                        <li>就绪状态：进程已获得除处理机以外的所需资源，等待分配处理机资源</li>
+                        <li>运行状态：占用处理机资源运行，处于此状态的进程数小于等于CPU数</li>
+                        <li>阻塞状态： 进程等待某种条件，在条件满足之前无法执行</li>
+                    </ul>
+                    <h4 id="分页和分段的区别">分页和分段的区别</h4>
+                    <ul>
+                        <li>段是信息的逻辑单位，它是根据用户的需要划分的，因此段对用户是<strong>可见</strong>的
+                            ；页是信息的物理单位，是为了管理主存的方便而划分的，对用户是<strong>透明</strong>的</li>
+                        <li>段的大小不固定，有它所完成的功能决定；页大大小固定，由系统决定</li>
+                        <li>段向用户提供二维地址空间；页向用户提供的是一维地址空间</li>
+                        <li>段是信息的逻辑单位，便于存储保护和信息的共享，页的保护和共享受到限制</li>
+                    </ul>
+                    <h4 id="操作系统进程调度的策略">操作系统进程调度的策略</h4>
+                    <ul>
+                        <li><strong>FCFS</strong>(先来先服务)</li>
+                        <li>优先级</li>
+                        <li>时间片轮转</li>
+                        <li>多级反馈</li>
+                    </ul>
+                    <h4 id="进程同步的几种机制">进程同步的几种机制</h4>
+                    <ul>
+                        <li><strong>原子操作</strong>：不可被中断的操作，例如 PV操作</li>
+                        <li><strong>信号量机制</strong>：信号量（semaphore）的数据结构为一个值和一个指针，指针指向等待该信号量的下一个进程。信号量的值与相应资源的使用情况有关。当它的值大于0时，表示当前可用资源的数量；当它的值小于0时，其绝对值表示等待使用该资源的进程个数。注意，信号量的值<strong>仅能</strong>由PV操作来改变。
+                        </li>
+                        <li><strong>自旋锁</strong>：旋锁是为了保护共享资源提出的一种锁机制。
+                            调用者申请的资源如果被占用，即自旋锁被已经被别的执行单元保持，则调用者一直循环在那里看是否该自旋锁的保持着已经释放了锁，自旋锁是一种比较低级的保护数据结构和代码片段的原始方式，可能会引起以下两个问题：
+                            <ol>
+                                <li>死锁</li>
+                                <li>过多地占用CPU资源</li>
+                            </ol>
+                        </li>
+                        <li><strong>管程</strong>：信号量机制功能强大，但使用时对信号量的操作分散，而且难以控制，读写和维护都很困难。因此后来又提出了一种集中式同步进程——管程。其基本思想是将共享变量和对它们的操作集中在一个模块中，操作系统或并发程序就由这样的模块构成。这样模块之间联系清晰，便于维护和修改，易于保证正确性。
+                        </li>
+                        <li><strong>会合</strong>：进程直接进行相互作用</li>
+                        <li><strong>分布式系统</strong>：由于在分布式操作系统中没有公共内存，因此参数全为值参，而且不可为指针</li>
+                    </ul>
+                    <h4 id="死锁产生的条件">死锁产生的条件</h4>
+                    <ul>
+                        <li>原因：<ol>
+                                <li>竞争系统资源</li>
+                                <li>进程的推进顺序不当</li>
+                            </ol>
+                        </li>
+                        <li>死锁产生的四个条件（有一个条件不成立，则不会产生死锁）<ol>
+                                <li>互斥条件：一个资源一次只能被一个进程使用</li>
+                                <li>请求与保持条件：一个进程因请求资源而阻塞时，对已获得资源保持不放</li>
+                                <li>不剥夺条件：进程获得的资源，在未完全使用完之前，不能强行剥夺</li>
+                                <li>循环等待条件：若干进程之间形成一种头尾相接的环形等待资源关系</li>
+                            </ol>
+                        </li>
+                    </ul>
+                    <h4 id="死锁的处理方法">死锁的处理方法</h4>
+                    <ul>
+                        <li><strong>预防死锁</strong>：<ol>
+                                <li>资源一次性分配：（破坏请求和保持条件）</li>
+                                <li>可剥夺资源：即当某进程新的资源未满足时，释放已占有的资源（破坏不可剥夺条件</li>
+                                <li>资源有序分配法：系统给每类资源赋予一个编号，每一个进程按编号递增的顺序请求资源，释放则相反（破坏环路等待条件）</li>
+                            </ol>
+                        </li>
+                        <li><strong>避免死锁</strong>：预防死锁的几种策略，会严重地损害系统性能。因此在避免死锁时，要施加较弱的限制，从而获得
+                            较满意的系统性能。由于在避免死锁的策略中，允许进程动态地申请资源。因而，系统在进行资源分配之前预先计算资源分配的安全性。若此次分配不会导致系统进入不安全状态，则将资源分配给进程；否则，进程等待。其中最具有代表性的避免死锁算法是<strong>银行家算法</strong>
+                        </li>
+                        <li><strong>检测死锁</strong>：首先为每个进程和每个资源指定一个唯一的号码；然后建立资源分配表和进程等待表；每种类型一个资源的死锁检测算法是通过检测有向图是否存在环来实现，从一个节点出发进行深度优先搜索，对访问过的节点进行标记，如果访问了已经标记的节点，就表示有向图存在环，也就是检测到死锁的发生。
+                        </li>
+                        <li><strong>解除死锁</strong>：当发现有进程死锁后，便应立即把它从死锁状态中解脱出来，常采用的方法有：<ol>
+                                <li>剥夺资源：从其它进程剥夺足够数量的资源给死锁进程，以解除死锁状态</li>
+                                <li>撤消进程：可以直接撤消死锁进程或撤消代价最小的进程，直至有足够的资源可用，死锁状态.消除为止；所谓代价是指优先级、运行代价、进程的重要性和价值等</li>
+                            </ol>
+                        </li>
+                    </ul>
+                    <hr>
+                    <h3 id="计算机网络-1">计算机网络</h3>
+                    <h4 id="http协议状态码">HTTP协议状态码</h4>
+                    <ul>
+                        <li>1xx 报告：接收到请求，继续进程</li>
+                        <li>2xx 成功：步骤成功接收，被理解，并被接受</li>
+                        <li>3xx 重定向：为了完成请求,必须采取进一步措施</li>
+                        <li>4xx 客户端出错：请求包括错的顺序或不能完成</li>
+                        <li>5xx 服务器出错：服务器无法完成显然有效的请求</li>
+                    </ul>
+                    <h4 id="tcpudp的区别">TCP/UDP的区别</h4>
+                    <ul>
+                        <li><strong>TCP</strong>和<strong>UDP</strong>是OSI模型中的运输层中的协议。<ul>
+                                <li>TCP提供可靠的通信传输</li>
+                                <li>UDP则常被用于让广播和细节控制交给应用的通信传输</li>
+                            </ul>
+                        </li>
+                        <li><strong>区别</strong>
+                            <ul>
+                                <li>TCP面向连接，UDP面向非连接即发送数据前不需要建立链接</li>
+                                <li>TCP提供可靠的服务（数据传输），UDP无法保证</li>
+                                <li>TCP面向字节流，UDP面向报文</li>
+                                <li>TCP数据传输慢，UDP数据传输快</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h4 id="常见的端口及对应的服务">常见的端口及对应的服务</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>端口</th>
+                                <th>服务</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>21</td>
+                                <td>FTP（文件传输协议）</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>SSH</td>
+                            </tr>
+                            <tr>
+                                <td>23</td>
+                                <td>Telnet（远程登录服务）</td>
+                            </tr>
+                            <tr>
+                                <td>25</td>
+                                <td>SMTP（简单邮件传输协议）</td>
+                            </tr>
+                            <tr>
+                                <td>53</td>
+                                <td>DNS域名服务器</td>
+                            </tr>
+                            <tr>
+                                <td>80</td>
+                                <td>HTTP超文本传输协议</td>
+                            </tr>
+                            <tr>
+                                <td>110</td>
+                                <td>POP3邮件协议3</td>
+                            </tr>
+                            <tr>
+                                <td>443</td>
+                                <td>HTTPS</td>
+                            </tr>
+                            <tr>
+                                <td>1080</td>
+                                <td>Sockets</td>
+                            </tr>
+                            <tr>
+                                <td>1521</td>
+                                <td>Oracle数据库默认端口</td>
+                            </tr>
+                            <tr>
+                                <td>3306</td>
+                                <td>MySQL服务</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4 id="tcp的三次握手">TCP的三次握手</h4>
+                    <p><img src="https://raw.githubusercontent.com/HIT-Alibaba/interview/master/img/tcp-connection-made-three-way-handshake.png"
+                            alt="TCP三次握手" title="TCP三次握手"></p>
+                    <ul>
+                        <li><strong>第一次握手</strong>（SYN=1，seq=x）：客户端发送一个 TCP 的 SYN 标志位置1的包，指明客户端打算连接的服务器的端口，以及初始序号
+                            X,保存在包头的序列号(Sequence Number)字段里。发送完毕后，客户端进入 SYN_SEND 状态</li>
+                        <li><strong>第二次握手</strong>（SYN=1， ACK=1， seq=y， ACKnum=x+1）：服务器发回确认包(ACK)应答。即 SYN 标志位和 ACK
+                            标志位均为1。服务器端选择自己 ISN 序列号，放到 Seq 域里，同时将确认序号(Acknowledgement Number)设置为客户的 ISN 加1，即X+1。
+                            发送完毕后，服务器端进入 SYN_RCVD 状态</li>
+                        <li><strong>第三次握手</strong>（ACK=1，ACKnum=y+1）：客户端再次发送确认包(ACK)，SYN 标志位为0，ACK 标志位为1，并且把服务器发来 ACK
+                            的序号字段+1，放在确定字段中发送给对方，并且在数据段放写ISN的+1。发送完毕后，客户端进入 ESTABLISHED 状态，当服务器端接收到这个包时，也进入 ESTABLISHED
+                            状态，TCP 握手结束</li>
+                    </ul>
+                    <h4 id="tcp的四次挥手">TCP的四次挥手</h4>
+                    <p><img src="https://raw.githubusercontent.com/HIT-Alibaba/interview/master/img/tcp-connection-closed-four-way-handshake.png"
+                            alt="TCP四次挥手" title="TCP四次挥手"></p>
+                    <ul>
+                        <li><strong>第一次挥手</strong>（FIN=1，seq=x）：假设客户端想要关闭连接，客户端发送一个 FIN
+                            标志位置为1的包，表示自己已经没有数据可以发送了，但是仍然可以接受数据。发送完毕后，客户端进入 FIN_WAIT_1 状态</li>
+                        <li><strong>第二次挥手</strong>（ACK=1，ACKnum=x+1）：服务器端确认客户端的 FIN
+                            包，发送一个确认包，表明自己接受到了客户端关闭连接的请求，但还没有准备好关闭连接。发送完毕后，服务器端进入 CLOSE_WAIT 状态，客户端接收到这个确认包之后，进入
+                            FIN_WAIT_2 状态，等待服务器端关闭连接</li>
+                        <li><strong>第三次挥手</strong>（FIN=1，seq=y）：服务器端准备好关闭连接时，向客户端发送结束连接请求，FIN 置为1。发送完毕后，服务器端进入 LAST_ACK
+                            状态，等待来自客户端的最后一个ACK</li>
+                        <li><strong>第四次挥手</strong>（ACK=1，ACKnum=y+1）：客户端接收到来自服务器端的关闭请求，发送一个确认包，并进入
+                            TIME_WAIT状态，等待可能出现的要求重传的 ACK 包。服务器端接收到这个确认包之后，关闭连接，进入 CLOSED
+                            状态。客户端等待了某个固定时间（两个最大段生命周期，2MSL，2 Maximum Segment Lifetime）之后，没有收到服务器端的 ACK
+                            ，认为服务器端已经正常关闭连接，于是自己也关闭连接，进入 CLOSED 状态</li>
+                    </ul>
+                    <h4 id="私有（保留地址）">私有（保留地址）</h4>
+                    <p>如果一个组织内部组建局域网，IP地址只用于局域网内的通信，而不直接连到Internet上，理论上使用任意的IP地址都可以，但是RFC
+                        1918规定了用于组建局域网的私有IP地址，这些地址不会出现在Internet上，如下表所示：</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th align="left">分类</th>
+                                <th align="center">范围</th>
+                                <th>合计</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td align="left">局域网私有IP</td>
+                                <td align="center">10.0.0.0 - 10.255.255.255</td>
+                                <td>16,777,216</td>
+                            </tr>
+                            <tr>
+                                <td align="left">局域网私有IP</td>
+                                <td align="center">172.16.0.0 - 172.31.255.255</td>
+                                <td>1,048,576</td>
+                            </tr>
+                            <tr>
+                                <td align="left">局域网私有IP</td>
+                                <td align="center">192.168.0.0 - 192.168.255.255</td>
+                                <td>65,536</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4 id="ip地址的分类">IP地址的分类</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th align="left">分类</th>
+                                <th align="center">前缀位</th>
+                                <th align="center">网络地址位数</th>
+                                <th align="center">剩余的位数</th>
+                                <th align="center">网络数</th>
+                                <th>每个网络的主机数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td align="left">A类</td>
+                                <td align="center">0</td>
+                                <td align="center">8</td>
+                                <td align="center">24</td>
+                                <td align="center">128</td>
+                                <td>16,777,214</td>
+                            </tr>
+                            <tr>
+                                <td align="left">B类</td>
+                                <td align="center">10</td>
+                                <td align="center">16</td>
+                                <td align="center">16</td>
+                                <td align="center">16,384</td>
+                                <td>65,534</td>
+                            </tr>
+                            <tr>
+                                <td align="left">C类</td>
+                                <td align="center">110</td>
+                                <td align="center">24</td>
+                                <td align="center">8</td>
+                                <td align="center">2,097,152</td>
+                                <td>254</td>
+                            </tr>
+                            <tr>
+                                <td align="left">D类（群播）</td>
+                                <td align="center">1110</td>
+                                <td align="center">未定义</td>
+                                <td align="center">未定义</td>
+                                <td align="center">未定义</td>
+                                <td>未定义</td>
+                            </tr>
+                            <tr>
+                                <td align="left">E类（保留）</td>
+                                <td align="center">1111</td>
+                                <td align="center">未定义</td>
+                                <td align="center">未定义</td>
+                                <td align="center">未定义</td>
+                                <td>未定义</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4 id="在浏览器输入网址之后执行过程">在浏览器输入网址之后执行过程</h4>
+                    <ol>
+                        <li>查找域名对应的<strong>IP</strong>地址。这一步会依次查找浏览器缓存，系统缓存，路由器缓存，ISPNDS缓存，根域名服务器</li>
+                        <li>浏览器向<strong>IP</strong>对应的web服务器发送一个HTTP请求</li>
+                        <li>服务器响应请求，发回网页内容</li>
+                        <li>浏览器解析网页内容</li>
+                    </ol>
+                    <h4 id="arp协议的工作过程">ARP协议的工作过程</h4>
+                    <ol>
+                        <li>首先，每个主机都会在自己的ARP缓冲区中建立一个ARP列表，以表示IP地址和MAC地址之间的对应关系</li>
+                        <li>当源主机要发送数据时，首先检查ARP列表中是否有对应的IP地址的目的主机的MAC地址，如果有，则直接发送数据，如果没有，就向本网段的所有主机发送ARP数据包，该数据包包括的内容有：源主机IP地址，源主机MAC地址，目的主机的IP地址
+                        </li>
+                        <li>当本网络的所有主机收到改ARP数据包时，首先检查数据包中的IP地址是否是自己的IP地址，如果不是，则忽略该数据包，如果是，则首先从数据包中取出源主机的IP和MAC地址写入到ARP列表中，如果已经存在，则覆盖，然后将自己的MAC地址写入ARP响应中，告诉源主机自己是它想要找的MAC地址
+                        </li>
+                        <li>源主机收到ARP响应后，将目的主机的IP和MAC地址写入ARP列表，并利用此信息发送数据。如果源主机一直没有收到ARP响应数据包，表示ARP查询失败</li>
+                    </ol>
+                    <h4 id="osi七层模型">OSI七层模型</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th align="center">层级</th>
+                                <th align="center">运行协议</th>
+                                <th>作用</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td align="center">应用层</td>
+                                <td align="center">HTTP、SMTP、SNMP、FTP、Telnet、SIP、SSH、NFS、RTSP、XMPP、Whois、ENRP、TLS</td>
+                                <td>允许访问OSI环境的手段（应用协议数据单元APDU）</td>
+                            </tr>
+                            <tr>
+                                <td align="center">表示层</td>
+                                <td align="center">XDR、ASN.1、NCP、TLS、ASCII</td>
+                                <td>对数据进行翻译、加密和压缩（表示协议数据单元PPDU）</td>
+                            </tr>
+                            <tr>
+                                <td align="center">会话层</td>
+                                <td align="center">ASAP、ISO 8327 / CCITT X.225、RPC、NetBIOS、Winsock、BSD sockets、SOCKS
+                                </td>
+                                <td>建立、管理和终止会话（会话协议数据单元SPDU）</td>
+                            </tr>
+                            <tr>
+                                <td align="center">传输层</td>
+                                <td align="center">TCP、UDP、RTP、SCTP、SPX、ATP、IL</td>
+                                <td>提供端到端的可靠报文传递和错误恢复（段Segment）</td>
+                            </tr>
+                            <tr>
+                                <td align="center">网络层</td>
+                                <td align="center">IP、ICMP、IPX、BGP、OSPF、RIP、IGRP、EIGRP、ARP、RARP、X.25（路由器）</td>
+                                <td>负责数据包从源到宿的传递和网际互连（包PackeT）</td>
+                            </tr>
+                            <tr>
+                                <td align="center">数据链路层</td>
+                                <td align="center">以太网、令牌环、HDLC、帧中继、ISDN、ATM、IEEE 802.11、FDDI、PPP（网桥，交换机）</td>
+                                <td>将比特组装成帧和点到点的传递（帧Frame）</td>
+                            </tr>
+                            <tr>
+                                <td align="center">物理层</td>
+                                <td align="center">RJ45、CLOCK、IEEE802.3（中继器，集线器，网关）</td>
+                                <td>通过媒介传输比特,确定机械及电气规范（比特Bit）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4 id="tcpip四层模型">TCP/IP四层模型</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th align="center">层级</th>
+                                <th>运行协议</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td align="center">应用层</td>
+                                <td>HTTP、FTP、DNS</td>
+                            </tr>
+                            <tr>
+                                <td align="center">传输层</td>
+                                <td>TCP、UDP、RTP、SCTP</td>
+                            </tr>
+                            <tr>
+                                <td align="center">网际互连层</td>
+                                <td>OSPF、ICMP、IGMP、ARP</td>
+                            </tr>
+                            <tr>
+                                <td align="center">网络访问(链接)层</td>
+                                <td>以太网、Wi-Fi、MPLS</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4 id="运行在tcpudp协议上的协议">运行在TCP/UDP协议上的协议</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th align="left">底层协议</th>
+                                <th>运行协议</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td align="left">TCP</td>
+                                <td>HTTP、HTTPS、FTP、POP3、SMTP、TELNET、SSH</td>
+                            </tr>
+                            <tr>
+                                <td align="left">UDP</td>
+                                <td>BOOTP、NTP、DHCP</td>
+                            </tr>
+                            <tr>
+                                <td align="left">TCP+UDP</td>
+                                <td>DNS、ECHO、SNMP、ARP</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4 id="http协议包括哪些请求">HTTP协议包括哪些请求</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th align="left">请求</th>
+                                <th>说明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td align="left">GET</td>
+                                <td>请求一个指定资源的表示形式。使用GET的请求应该只被用于获取数据</td>
+                            </tr>
+                            <tr>
+                                <td align="left">POST</td>
+                                <td>用于将实体提交到指定的资源，通常导致在服务器上的状态变化或副作用</td>
+                            </tr>
+                            <tr>
+                                <td align="left">HEAD</td>
+                                <td>请求一个与GET请求的响应相同的响应，但没有响应体。</td>
+                            </tr>
+                            <tr>
+                                <td align="left">PUT</td>
+                                <td>请求有效载荷替换目标资源的所有当前表示（幂等）</td>
+                            </tr>
+                            <tr>
+                                <td align="left">DELETE</td>
+                                <td>删除指定的资源</td>
+                            </tr>
+                            <tr>
+                                <td align="left">CONNECT</td>
+                                <td>建立一个到由目标资源标识的服务器的隧道</td>
+                            </tr>
+                            <tr>
+                                <td align="left">OPTIONS</td>
+                                <td>描述目标资源的通信选项</td>
+                            </tr>
+                            <tr>
+                                <td align="left">TRACE</td>
+                                <td>沿着到目标资源的路径执行一个消息环回测试</td>
+                            </tr>
+                            <tr>
+                                <td align="left">PATCH</td>
+                                <td>用于对资源应用部分修改</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4 id="tcp协议如何保证传输的可靠性">TCP协议如何保证传输的可靠性</h4>
+                    <ul>
+                        <li><strong>数据包校验</strong>：目的是检测数据在传输过程中的任何变化，若校验出包有错，则丢弃报文段并且不给出响应，这时TCP发送数据端超时后会重发数据</li>
+                        <li><strong>对失序数据包重排序</strong>：既然TCP报文段作为IP数据报来传输，而IP数据报的到达可能会失序，因此TCP报文段的到达也可能会失序。TCP将对失序数据进行重新排序，然后才交给应用层
+                        </li>
+                        <li><strong>丢弃重复数据</strong>：对于重复数据，能够丢弃重复数据</li>
+                        <li><strong>应答机制</strong>：当TCP收到发自TCP连接另一端的数据，它将发送一个确认。这个确认不是立即发送，通常将推迟几分之一秒</li>
+                        <li><strong>超时重发</strong>：当TCP发出一个段后，它启动一个定时器，等待目的端确认收到这个报文段。如果不能及时收到一个确认，将重发这个报文段</li>
+                        <li><strong>流量控制</strong>：TCP连接的每一方都有固定大小的缓冲空间。TCP的接收端只允许另一端发送接收端缓冲区所能接纳的数据，这可以防止较快主机致使较慢主机的缓冲区溢出，这就是流量控制。TCP使用的流量控制协议是可变大小的滑动窗口协议
+                        </li>
+                    </ul>
+                    <hr>
+                    <h3 id="数据结构和算法-1">数据结构和算法</h3>
+                    <h4 id="链表">链表</h4>
+                    <ul>
+                        <li>给定链表的头指针和一个节点指针，在O(1)时间删除该节点</li>
+                        <li>输入一个单向链表，输出逆序反转后的链表</li>
+                        <li>求链表倒数第k个节点</li>
+                        <li>求链表的中间节点</li>
+                        <li>判断单链表是否存在环</li>
+                        <li>找到环的入口点</li>
+                        <li>判断两个链表是否相交</li>
+                        <li>两链表相交的第一个公共节点</li>
+                    </ul>
+                    <h4 id="树">树</h4>
+                    <ol>
+                        <li>
+                            <p>平衡二叉树</p>
+                            <ul>
+                                <li><strong>概念</strong>：平衡二叉树是基于二分法的策略提高数据的查找速度的二叉树的数据结构</li>
+                                <li><strong>特点</strong>：<ol>
+                                        <li>非叶子节点最多拥有两个子节点</li>
+                                        <li>非叶子节值大于左边子节点、小于右边子节点</li>
+                                        <li>树的左右两边的层级数相差不会大于1</li>
+                                        <li>没有值相等重复的节点</li>
+                                    </ol>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>B树(B-tree)</p>
+                            <ul>
+                                <li><strong>概念</strong>：B树和平衡二叉树稍有不同的是B树属于多叉树又名平衡多路查找树（查找路径不只两个），数据库索引技术里大量使用B树和B+树的数据结构，其充分利用了磁盘块的原理（磁盘数据存储是采用块的形式存储的，每个块的大小为4K，每次IO进行数据读取时，同一个磁盘块的数据可以一次性读取出来）把节点大小限制和充分使用在磁盘快大小范围；把树的节点关键字增多后树的层级比原来的二叉树少了，减少数据查找的次数和复杂度
+                                </li>
+                                <li><strong>排序方式</strong>：所有节点关键字是按递增次序排列，并遵循左小右大原则</li>
+                                <li><strong>子节点数</strong>：非叶节点的子节点数&gt;1，且&lt;=M
+                                    ，且M&gt;=2，空树除外（注：M阶代表一个树节点最多有多少个查找路径，M=M路,当M=2则是2叉树,M=3则是3叉）</li>
+                                <li><strong>关键字数</strong>：枝节点的关键字数量大于等于ceil(m/2)-1个且小于等于M-1个（注：ceil()是个朝正无穷方向取整的函数
+                                    如ceil(1.1)结果为2）</li>
+                                <li><strong>所有叶子节点</strong>均在同一层、叶子节点除了包含了关键字和关键字记录的指针外也有指向其子节点的指针只不过其指针地址都为null对应下图最后一层节点的空格子
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>B+树</p>
+                            <ul>
+                                <li><strong>概念</strong>：B+树是B树的一个升级版，相对于B树来说B+树更充分的利用了节点的空间，让查询速度更加稳定，其速度完全接近于二分法查找</li>
+                                <li><strong>规则</strong>：<ol>
+                                        <li>B+跟B树不同B+树的非叶子节点不保存关键字记录的指针，只进行数据索引，这样使得B+树每个非叶子节点所能保存的关键字大大增加</li>
+                                        <li>B+树叶子节点保存了父节点的所有关键字记录的指针，所有数据地址必须要到叶子节点才能获取到。所以每次数据查询的次数都一样</li>
+                                        <li>B+树叶子节点的关键字从小到大有序排列，左边结尾数据都会保存右边节点开始数据的指针</li>
+                                        <li>非叶子节点的子节点数=关键字数（另一种为非叶节点的关键字数=子节点数-1）</li>
+                                    </ol>
+                                </li>
+                                <li><strong>特点</strong>：<ol>
+                                        <li>B+树的层级更少：相较于B树B+每个非叶子节点存储的关键字数更多，树的层级更少所以查询数据更快</li>
+                                        <li>B+树查询速度更稳定：B+所有关键字数据地址都存在叶子节点上，所以每次查找的次数都相同所以查询速度要比B树更稳定</li>
+                                        <li>B+树天然具备排序功能：B+树所有的叶子节点数据构成了一个有序链表，在查询大小区间的数据时候更方便，数据紧密性很高，缓存的命中率也会比B树高</li>
+                                        <li>B+树全节点遍历更快：B+树遍历整棵树只需要遍历所有的叶子节点即可，而不需要像B树一样需要对每一层进行遍历，这有利于数据库做全表扫描</li>
+                                        <li>B树相对于B+树的优点是，如果经常访问的数据离根节点很近，而B树的非叶子节点本身存有关键字其数据的地址，所以这种数据检索的时候会要<strong>比B+树快</strong>
+                                        </li>
+                                    </ol>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>B*树</p>
+                            <ul>
+                                <li><strong>概念</strong>：B*树是B+树的变种，相对于B+树他们的不同之处如下：<ol>
+                                        <li>首先是关键字个数限制问题，B+树初始化的关键字初始化个数是cei(m/2)，b<em>树的初始化个数为（cei(2/3</em>m)）</li>
+                                        <li>B+树节点满时就会分裂，而B*树节点满时会检查兄弟节点是否满（因为每个节点都有指向兄弟的指针），如果兄弟节点未满则向兄弟节点转移关键字，如果兄弟节点已满，则从当前节点和兄弟节点各拿出1/3的数据创建一个新的节点出来
+                                        </li>
+                                    </ol>
+                                </li>
+                                <li><strong>特点</strong>：在B+树的基础上因其初始化的容量变大，使得节点空间使用率更高，而又存有兄弟节点的指针，可以向兄弟节点转移关键字的特性使得B*树额分解次数变得更少
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>总结</p>
+                            <ul>
+                                <li><strong>相同思想和策略</strong>：从平衡二叉树、B树、B+树、B*树总体来看它们的贯彻的思想是相同的，都是采用二分法和数据平衡策略来提升查找数据的速度
+                                </li>
+                                <li><strong>不同的方式的磁盘空间利用</strong>：不同点是他们一个一个在演变的过程中通过IO从磁盘读取数据的原理进行一步步的演变，每一次演变都是为了让节点的空间更合理的运用起来，从而使树的层级减少达到快速查找数据的目的
+                                </li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <h4 id="哈希表">哈希表</h4>
+                    <ul>
+                        <li><strong>概念</strong>：哈希表（Hash Table，也叫散列表），是根据关键码值 (Key-Value)
+                            而直接进行访问的数据结构。通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。哈希表的实现主要需要解决两个问题，哈希函数和冲突解决</li>
+                        <li><strong>哈希函数</strong>：哈希函数也叫散列函数，它对不同的输出值得到一个固定长度的消息摘要。理想的哈希函数对于不同的输入应该产生不同的结构，同时散列结果应当具有同一性（输出值尽量均匀）和雪崩效应（微小的输入值变化使得输出值发生巨大的变化）
+                        </li>
+                        <li><strong>冲突解决</strong>：现实中的哈希函数不是完美的，当两个不同的输入值对应一个输出值时，就会产生“碰撞”，这个时候便需要解决冲突<ol>
+                                <li>链地址法：为每个 Hash 值建立一个单链表，当发生冲突时，将记录插入到链表中</li>
+                                <li>开放定址法：根据hash函数计算数组下标时，当遇到数据存放的冲突时就需要重新找到数组的其他位置。关于开放地址法通常需要有三种方法：线性探测、二次探测、再哈希法</li>
+                                <li>建立公共溢出区：将哈希表分为基本表和溢出表两部分，凡是和基本表发生冲突的元素，一律填入溢出表</li>
+                            </ol>
+                        </li>
+                    </ul>
+                    <h4 id="排序">排序</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th align="left">稳定排序</th>
+                                <th align="center">时间复杂度</th>
+                                <th>空间复杂度</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td align="left">冒泡排序（Bubble Sort）</td>
+                                <td align="center">O(n²)</td>
+                                <td>O(1)</td>
+                            </tr>
+                            <tr>
+                                <td align="left">插入排序（Insertion Sort）</td>
+                                <td align="center">O(n²)</td>
+                                <td>O(1)</td>
+                            </tr>
+                            <tr>
+                                <td align="left">桶排序（Bucket Sort）</td>
+                                <td align="center">O(n)</td>
+                                <td>O(k)</td>
+                            </tr>
+                            <tr>
+                                <td align="left">计数排序 (Counting Sort)</td>
+                                <td align="center">O(n+k)</td>
+                                <td>O(n+k)</td>
+                            </tr>
+                            <tr>
+                                <td align="left">合并排序（Merge Sort）</td>
+                                <td align="center">O(nlogn)</td>
+                                <td>O(n)</td>
+                            </tr>
+                            <tr>
+                                <td align="left">二叉排序树排序 （Binary tree sort）</td>
+                                <td align="center">期望O(nlogn) 最坏O(n²)</td>
+                                <td>O(n)</td>
+                            </tr>
+                            <tr>
+                                <td align="left">基数排序（Radix sort）</td>
+                                <td align="center">O(n·k)</td>
+                                <td>O(n)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th align="left">不稳定排序</th>
+                                <th align="center">时间复杂度</th>
+                                <th>空间复杂度</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td align="left">选择排序（Selection Sort）</td>
+                                <td align="center">O(n²)</td>
+                                <td>O(1)</td>
+                            </tr>
+                            <tr>
+                                <td align="left">希尔排序（Shell Sort）</td>
+                                <td align="center">O(nlogn)</td>
+                                <td>O(1)</td>
+                            </tr>
+                            <tr>
+                                <td align="left">堆排序（Heapsort）</td>
+                                <td align="center">O(nlogn)</td>
+                                <td>O(k)</td>
+                            </tr>
+                            <tr>
+                                <td align="left">快速排序（Quicksort）</td>
+                                <td align="center">期望O(nlogn) 最坏O(n²)</td>
+                                <td>O(1)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4 id="随机">随机</h4>
+                    <ul>
+                        <li>
+                            <p><strong>洗牌算法</strong>：只利用一次循环<strong>等概率</strong>的取到不同的元素(牌)。如果元素存在于数组中，即可将每次 random 到的元素
+                                与 最后一个元素进行交换，然后 count--，即可（每一个位置都能等概率地放置每个元素）</p>
+                            <ul>
+                                <li>
+                                    <p>以下算法不能产生均匀随机排列：</p>
+                                    <pre><code>    <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">PERMUTE_WITH_ALL</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; A, <span class="hljs-keyword">int</span> n)</span> </span>{
+        default_random_engine e;
+        <span class="hljs-function">uniform_int_distribution&lt;<span class="hljs-keyword">unsigned</span>&gt; <span class="hljs-title">u</span><span class="hljs-params">(<span class="hljs-number">0</span>, n<span class="hljs-number">-1</span>)</span></span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) {
+            swap(A[i], A[u(e)]);
+        }
+        <span class="hljs-keyword">return</span> A;
+    }</code></pre>
+                                    <p>假定 n=3，则该算法可以产生3<em>3</em>3=27个输出，而3个元素只有3!=6个不同的排列，要使得这些排列出现概率等于
+                                        1/6，则必须使得每个排列出现次数 m 满足m/27=1/6，显然，没有这样的整数符合条件。而实际上各个排列出现的概率如下，如 {1,2,3}
+                                        出现的概率为4/27，不等于 1/6</p>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th align="center">排列</th>
+                                                <th align="center">概率</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td align="center">&lt;1, 2, 3&gt;</td>
+                                                <td align="center">4/27</td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center">&lt;1, 3, 2&gt;</td>
+                                                <td align="center">5/27</td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center">&lt;2, 1, 3&gt;</td>
+                                                <td align="center">5/27</td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center">&lt;2, 3, 1&gt;</td>
+                                                <td align="center">5/27</td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center">&lt;3, 1, 2&gt;</td>
+                                                <td align="center">4/27</td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center">&lt;3, 2, 1&gt;</td>
+                                                <td align="center">4/27</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p><strong>随机选取一个数字</strong>：给定一个未知长度的整数流，如何随机选取一个数？（所谓随机就是保证每个数被选取的概率相等）</p>
+                            <p> 一个简单的方法就是使用随机分布 u(1,n)，随机函数 f(n)=u(e)%n，当数据流到第 n 个数时，如果
+                                f(n)==0，则替换前面的已经选的随机数，这样可以保证每个数字被选中的概率都是 1/n。如当 n=1 时，则f(1)=0，则选择第 1 个数，当 n=2 时，则第 2
+                                个数被选中的概率都为 1/2，以此类推，当数字长度为 n 时，第 n 个数字被选中的概率为 1/n。</p>
+                        </li>
+                        <li>
+                            <p><strong>随机选取M个数字</strong>：程序输入包含两个整数 m 和 n ，其中 m&lt;n，输出是 0~n-1 范围内的 m
+                                个随机整数的有序列表，不允许重复。从概率角度来说，我们希望得到没有重复的有序选择，其中每个选择出现的概率相等</p>
+                            <pre><code>  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">randomMKnuth</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> m)</span>
+  </span>{
+      <span class="hljs-keyword">int</span> i;
+      <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; n; i++) {
+          <span class="hljs-keyword">if</span> ((rand() % (n-i)) &lt; m) {
+              <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d "</span>, i);
+              m--;
+          }
+      }
+  }</code></pre>
+                        </li>
+                        <li>
+                            <p><strong>rand7 生成 rand10
+                                    问题</strong>：已知一个函数rand7()能够生成1-7的随机数，每个数概率相等，请给出一个函数rand10()，该函数能够生成 1-10
+                                的随机数，每个数概率相等</p>
+                            <pre><code>  <span class="hljs-attribute">int</span> rand7ToRand10Sample() {
+      <span class="hljs-attribute">int</span> row, col, idx;
+      <span class="hljs-section">do</span> {
+          <span class="hljs-attribute">row</span> = rand7();
+          <span class="hljs-attribute">col</span> = rand7();
+          <span class="hljs-attribute">idx</span> = col + (row-<span class="hljs-number">1</span>)*<span class="hljs-number">7</span>;
+      } <span class="hljs-attribute">while</span> (idx &gt; <span class="hljs-number">40</span>);
+      <span class="hljs-attribute">return</span> <span class="hljs-number">1</span> + (idx-<span class="hljs-number">1</span>) % <span class="hljs-number">10</span>;
+  }</code></pre>
+                        </li>
+                    </ul>
+                    <h4 id="贪心">贪心</h4>
+                    <ul>
+                        <li>
+                            <p><strong>跳跃游戏</strong>：给定一个非负整数数组，你最初位于数组的第一个位置。数组中的每个元素代表你在该位置可以跳跃的最大长度。判断你是否能够到达最后一个位置
+                            </p>
+                            <pre><code>  <span class="hljs-string">输入:</span> <span class="hljs-string">[2,3,1,1,4]</span>
+  <span class="hljs-string">输出:</span> <span class="hljs-literal">true</span>
+
+  <span class="hljs-string">输入:</span> <span class="hljs-string">[3,2,1,0,4]</span>
+  <span class="hljs-string">输出:</span> <span class="hljs-literal">false</span></code></pre>
+                        </li>
+                    </ul>
+                    <h4 id="动态规划">动态规划</h4>
+                    <ul>
+                        <li>
+                            <p>连续子数组的最大和：</p>
+                            <pre><code>  求解 dp[i] 只依赖 dp[i<span class="hljs-number">-1</span>]，因此可以使用变量来存储，简化代码
+
+  <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxSubArray</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> n)</span> </span>{
+      <span class="hljs-keyword">int</span> result = INT_MIN;
+      <span class="hljs-keyword">int</span> f = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i &lt; n; i++) {
+          f = max(f + A[i], A[i]);
+          result = max(result, f);
+      }
+      <span class="hljs-keyword">return</span> result;
+  }</code></pre>
+                        </li>
+                    </ul>
+                    <h4 id="图算法">图算法</h4>
+                    <p>图算法的基本概念：<a
+                            href="https://www.jiqizhixin.com/articles/2019-05-16-14">https://www.jiqizhixin.com/articles/2019-05-16-14</a>
+                    </p>
+                    <hr>
+                    <h3 id="计算机组成原理-1">计算机组成原理</h3>
+                    <h4 id="数字电路的三种状态">数字电路的三种状态</h4>
+                    <ul>
+                        <li>数字 <strong>1</strong>：高电平输出</li>
+                        <li>数字 <strong>0</strong>：低电平输出</li>
+                        <li>高阻抗：高阻态输出，相应的输出端和任一管脚之间都处于高阻状态，如同绝缘一般</li>
+                    </ul>
+                    <h4 id="计算机系统层次结构">计算机系统层次结构</h4>
+                    <h5 id="计算机硬件的基本组成">计算机硬件的基本组成</h5>
+                    <ul>
+                        <li>运算器</li>
+                        <li>存储器</li>
+                        <li>控制器</li>
+                        <li>输入设备</li>
+                        <li>输出设备</li>
+                    </ul>
+                    <h5 id="计算机软件的分类">计算机软件的分类</h5>
+                    <ul>
+                        <li>系统软件</li>
+                        <li>应用软件</li>
+                    </ul>
+                    <h5 id="计算机的工作过程">计算机的工作过程</h5>
+                    <ol>
+                        <li>把程序和数据装入到主存储器中</li>
+                        <li>从程序的起始地址运行程序</li>
+                        <li>用程序的首地址从存储器中取出第一条指令，经过译码、执行步骤等控制计算机各功能部件协同运行，完成这条指令，并计算下一条指令的地址</li>
+                        <li>用新得到的指令地址继续读出第二条指令并执行，直到程序结束未知；每一条指令都是在取指、译码和执行的循环过程中完成的</li>
+                    </ol>
+                    <h4 id="计算机性能指标">计算机性能指标</h4>
+                    <ul>
+                        <li>吞吐量</li>
+                        <li>响应时间</li>
+                        <li>CPU时钟周期</li>
+                        <li>主频</li>
+                        <li>CPI</li>
+                        <li>CPU执行时间（指令周期）</li>
+                        <li>CPU的速度（MIPS、MFLOPS）</li>
+                    </ul>
+                    <h4 id="数据的表示和运算">数据的表示和运算</h4>
+                    <h5 id="数制与编码">数制与编码</h5>
+                    <ul>
+                        <li>进位计数制及其相互转换</li>
+                        <li>真值和机器数</li>
+                        <li>BCD码</li>
+                        <li>字符与字符串</li>
+                        <li>三种数据校验码及其特点</li>
+                    </ul>
+                    <h5 id="定点数的表示和运算">定点数的表示和运算</h5>
+                    <ul>
+                        <li>定点数的表示<ul>
+                                <li>无符号数和有符号数的表示</li>
+                                <li>定点数的表示范围（N位整数、M位小数（原码、补码））</li>
+                            </ul>
+                        </li>
+                        <li>定点数的运算<ul>
+                                <li>定点数的位移运算</li>
+                                <li>原码定点数的加／减运算</li>
+                                <li>补码定点数的加／减运算</li>
+                                <li>定点数的乘／除运算</li>
+                                <li>溢出概念和判别方法</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h5 id="浮点数的表示范围">浮点数的表示范围</h5>
+                    <ul>
+                        <li>阶码、尾数；最大正数、最小负数；规格化（补码、原码）</li>
+                    </ul>
+                    <h4 id="存储系统">存储系统</h4>
+                    <h5 id="存储器的层次结构">存储器的层次结构</h5>
+                    <ul>
+                        <li>存储器的分类</li>
+                        <li>存储器的性能指标</li>
+                    </ul>
+                    <h5 id="存储器的层次化结构">存储器的层次化结构</h5>
+                    <ul>
+                        <li>多级存储系统</li>
+                    </ul>
+                    <h5 id="半导体随机存取存储器">半导体随机存取存储器</h5>
+                    <ul>
+                        <li>半导体存储芯片</li>
+                        <li>SRAM的工作原理、特点</li>
+                        <li>DRAM的工作原理</li>
+                        <li>只读存储器</li>
+                    </ul>
+                    <h5 id="主存储器与cpu的连接">主存储器与CPU的连接</h5>
+                    <ul>
+                        <li>连接原理</li>
+                        <li>主存容量的扩展</li>
+                        <li>存储芯片的地址分配和片选</li>
+                        <li>存储器与CPU的连接</li>
+                    </ul>
+                    <h5 id="双口ram和多模块存储器">双口RAM和多模块存储器</h5>
+                    <ul>
+                        <li>双端口RAM</li>
+                        <li>多模块存储器</li>
+                    </ul>
+                    <h5 id="高速缓冲存储器（cache）">高速缓冲存储器（Cache）</h5>
+                    <ul>
+                        <li>程序访问的局部性原理</li>
+                        <li>Cache的基本工作原理</li>
+                        <li>Cache和主存之间的映射方式</li>
+                        <li>Cache中主存块的替换算法</li>
+                        <li>Cache写策略</li>
+                    </ul>
+                    <h5 id="虚拟存储器">虚拟存储器</h5>
+                    <ul>
+                        <li>虚拟存储器的基本概念</li>
+                        <li>页式虚拟存储器</li>
+                        <li>段式虚拟存储器</li>
+                        <li>段页式虚拟存储器</li>
+                        <li>TLB（快表）</li>
+                        <li>FIFO、LRU的替换算法</li>
+                        <li>虚拟存储器与Cache的比较</li>
+                    </ul>
+                    <h4 id="指令系统">指令系统</h4>
+                    <h5 id="指令格式">指令格式</h5>
+                    <ul>
+                        <li>指令的基本格式</li>
+                        <li>定长操作码指令格式</li>
+                        <li>扩展操作码指令格式</li>
+                    </ul>
+                    <h5 id="指令的寻址方式">指令的寻址方式</h5>
+                    <ul>
+                        <li>有效地址的概念</li>
+                        <li>数据寻址和指令寻址</li>
+                        <li>常见的七种寻址方式</li>
+                    </ul>
+                    <h5 id="cisc和risc的基本概念">CISC和RISC的基本概念</h5>
+                    <ul>
+                        <li>复杂指令系统计算机 CISC</li>
+                        <li>精简指令系统计算机 RISC</li>
+                        <li>CISC 和 RISC 的比较</li>
+                    </ul>
+                    <h4 id="中央处理器">中央处理器</h4>
+                    <h5 id="cpu的功能和基本结构">CPU的功能和基本结构</h5>
+                    <ul>
+                        <li>指令周期、机器周期、时钟周期的概念和三者的关系</li>
+                    </ul>
+                    <h5 id="指令执行过程">指令执行过程</h5>
+                    <h5 id="数据通路的功能和基本结构">数据通路的功能和基本结构</h5>
+                    <h5 id="控制器的分类、功能和工作原理">控制器的分类、功能和工作原理</h5>
+                    <ul>
+                        <li>硬布线控制器的特点</li>
+                        <li>微程序控制器的特点和工作原理<ul>
+                                <li>微程序、微指令和微命令</li>
+                                <li>微指令的格式、分类、编码方式</li>
+                            </ul>
+                        </li>
+                        <li>可编程逻辑控制器的特点</li>
+                    </ul>
+                    <h5 id="操作流水线、指令流水线（cpu内部）">操作流水线、指令流水线（CPU内部）</h5>
+                    <ul>
+                        <li>指令流水线的基本概念</li>
+                        <li>流水线的分类</li>
+                        <li>引起流水线阻塞的因素<ul>
+                                <li>三种相关（数据、资源、控制）</li>
+                                <li>三种数据相关（WAW、WAR、RAW）</li>
+                            </ul>
+                        </li>
+                        <li>流水线的性能指标</li>
+                        <li>超标量流水线的基本概念</li>
+                    </ul>
+                    <h4 id="总线">总线</h4>
+                    <h5 id="总线概述">总线概述</h5>
+                    <ul>
+                        <li>总线的基本概念</li>
+                        <li>总线的分类、总线结构的分类，总线带宽</li>
+                        <li>总线的组成及性能指标</li>
+                    </ul>
+                    <h5 id="总线仲裁">总线仲裁</h5>
+                    <ul>
+                        <li>集中仲裁方式的分类：菊花链、优先级编码、计数器</li>
+                        <li>分布仲裁方式</li>
+                    </ul>
+                    <h5 id="总线操作和定时">总线操作和定时</h5>
+                    <ul>
+                        <li>总线传输的四个阶段</li>
+                        <li>同步定时方式</li>
+                        <li>异步定时方式</li>
+                    </ul>
+                    <h5 id="总线标准">总线标准</h5>
+                    <h4 id="输入输出系统">输入输出系统</h4>
+                    <h5 id="io系统基本概念">I/O系统基本概念</h5>
+                    <h5 id="外部设备">外部设备</h5>
+                    <ul>
+                        <li>输入设备：键盘、鼠标</li>
+                        <li>输出设备、显示器（VRAM）的容量与速度的计算、打印机</li>
+                        <li>外存储器：硬盘存储器的容量与速度计算、磁盘阵列、光盘存储器、多种磁记录方式与自同步能力</li>
+                    </ul>
+                    <h5 id="io接口（io控制器）">I/O接口（I/O控制器）</h5>
+                    <ul>
+                        <li>I/O接口的功能和基本结构（状态、数据、控制）</li>
+                        <li>I/O接口及其编址</li>
+                        <li>统一、地址区分</li>
+                        <li>独立，指令或信号区分内存还是I/O接口</li>
+                    </ul>
+                    <h5 id="io方式">I/O方式</h5>
+                    <ul>
+                        <li>程序直接控制</li>
+                        <li>无条件</li>
+                        <li>查询方式</li>
+                        <li>程序中断方式</li>
+                        <li>中断矢量、矢量中断的基本概念</li>
+                        <li>中断响应过程（保存断点；关中断、保护现场，获取中断矢量）</li>
+                        <li>中断处理过程</li>
+                        <li>多重中断和中断屏蔽的概念、中断响应条件（当前指令执行完、高优先级的中断请求、CPU开中断、设备开中断）</li>
+                        <li>DMA方式</li>
+                        <li>DMA控制器的组成</li>
+                        <li>DMA传送过程</li>
+                        <li>通道方式</li>
+                        <li>分类</li>
+                        <li>应用场合</li>
+                        <li>外围处理器方式</li>
+                    </ul>
+                    <hr>
+                    <h3 id="数据库-1">数据库</h3>
+                    <h4 id="sql">SQL</h4>
+                    <p>SQL 是一种数据库查询和程序设计语言，用于存取数据以及查询、更新和管理关系数据库系统。与其他程序设计语言（如 C语言、Java 等）不同的是，SQL 由很少的关键字组成，每个 SQL
+                        语句通过一个或多个关键字构成。</p>
+                    <h4 id="sql具有如下优点">SQL具有如下优点</h4>
+                    <ol>
+                        <li>一体化：SQL 集数据定义、数据操作和数据控制于一体，可以完成数据库中的全部工作。</li>
+                        <li>使用方式灵活：SQL 具有两种使用方式，可以直接以命令方式交互使用；也可以嵌入使用，嵌入C、C++、Fortran、COBOL、Java 等语言中使用。</li>
+                        <li>非过程化：只提操作要求，不必描述操作步骤，也不需要导航。使用时只需要告诉计算机“做什么”，而不需要告诉它“怎么做”，存储路径的选择和操作的执行由数据库管理系统自动完成。</li>
+                        <li>语言简洁、语法简单：该语言的语句都是由描述性很强的英语单词组成，而且这些单词的数目不多。</li>
+                    </ol>
+                    <h4 id="sql的组成">SQL的组成</h4>
+                    <ol>
+                        <li>
+                            <p>数据定义语言（Data Definition Language，DDL） 用来创建或删除数据库以及表等对象，主要包含以下几种命令：</p>
+                            <ul>
+                                <li>DROP：删除数据库和表等对象</li>
+                                <li>CREATE：创建数据库和表等对象</li>
+                                <li>ALTER：修改数据库和表等对象的结构</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>数据操作语言（Data Manipulation Language，DML） 用来变更表中的记录，主要包含以下几种命令：</p>
+                            <ul>
+                                <li>SELECT：查询表中的数据</li>
+                                <li>INSERT：向表中插入新数据</li>
+                                <li>UPDATE：更新表中的数据</li>
+                                <li>DELETE：删除表中的数据</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>数据查询语言（Data Query Language，DQL）用来查询表中的记录，主要包含 SELECT 命令，来查询表中的数据。</p>
+                        </li>
+                        <li>
+                            <p>数据控制语言（Data Control Language，DCL）
+                                用来确认或者取消对数据库中的数据进行的变更。除此之外，还可以对数据库中的用户设定权限。主要包含以下几种命令：</p>
+                            <ul>
+                                <li>GRANT：赋予用户操作权限</li>
+                                <li>REVOKE：取消用户的操作权限</li>
+                                <li>COMMIT：确认对数据库中的数据进行的变更</li>
+                                <li>ROLLBACK：取消对数据库中的数据进行的变更</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <h4 id="例子">例子</h4>
+                    <ol>
+                        <li>
+                            <p>声明创建一个名叫 students 的表：</p>
+                            <pre><code class="language-SQL"> <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> students (
+     student_id <span class="hljs-built_in">INT</span> <span class="hljs-keyword">UNSIGNED</span>,
+     <span class="hljs-keyword">name</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">30</span>) ,
+     sex <span class="hljs-built_in">CHAR</span>(<span class="hljs-number">1</span>),
+     birth <span class="hljs-built_in">DATE</span>,
+     PRIMARY <span class="hljs-keyword">KEY</span>(student_id)
+ );</code></pre>
+                        </li>
+                        <li>
+                            <p>在 students 表中插入一条数据记录</p>
+                            <pre><code class="language-SQL"> <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> students (student_id, <span class="hljs-keyword">name</span>, sex, birth)
+ <span class="hljs-keyword">VALUES</span> (<span class="hljs-number">111</span>, <span class="hljs-string">'插入数据'</span>, <span class="hljs-string">'1'</span>, <span class="hljs-string">'2020-02-14'</span>);</code></pre>
+                        </li>
+                        <li>
+                            <p>使用 SELECT 查询语句获取刚才插入的数据</p>
+                            <pre><code class="language-SQL"> <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span> <span class="hljs-keyword">FROM</span> students <span class="hljs-keyword">WHERE</span> student_id=<span class="hljs-number">111</span>;</code></pre>
+                        </li>
+                    </ol>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
