@@ -1,0 +1,159 @@
+<html lang="cmn-hans">
+
+<head>
+    <meta content="text/html; charset=UTF-8">
+    <meta name="author" content="liujing">
+    <title>Linux程序设计笔记</title>
+    <link rel="stylesheet" type="text/css" href="../assets/index.css">
+</head>
+
+<body>
+    <div id="header">
+        <h1 id="title"><a href="https://jingaz.github.io">jingaz</a></h1>
+        <div class="links">
+            <a href="" target="_blank">
+                <div class="iconfont icon-rss"></div>
+            </a>
+            <a href="https://github.com/jingaz" target="_blank">
+                <div class="iconfont icon-github"></div>
+            </a>
+            <a href="https://jingaz.github.io/blog/post/about.html" target="_blank">
+                <div class="iconfont icon-author"></div>
+            </a>
+        </div>
+    </div>
+    <div id="main">
+        <div id="post">
+            <div class="main">
+                <h3 class="date" id="date_for_now">2021/4/20</h3>
+                <h1 id="title_text">Linux程序设计笔记</h1>
+                <div id="content">
+                    <p><strong>记录不常见的容易被遗忘的知识点</strong></p>
+                    <h4 id="文件操作">文件操作</h4>
+                    <ul>
+                        <li>O_EXCL：与O_CREAT一起使用，确保调用者创建出文件，Open调用是一个<strong>原子操作</strong>，也就是说，它只执行一个函数调用。使用这个可选模式可以防止两个程序同时创建同一个文件。如果文件已经存在，Open调用将失败。
+                        </li>
+                        <li>#include&lt;unistd.h&gt; 行必须<strong>首先出现</strong>，因为它定义的与POSIX规范有关的标志可能会影响到其他的头文件。</li>
+                        <li>相关函数stat和lstat返回的是通过文件名查到的状态信息。它们产生相同的结果，但当文件是一个<strong>符号链接</strong>时，lstat返回的是该符号链接本身的信息。而stat返回的是该链接指向的文件的信息。
+                        </li>
+                        <li>调用fclose函数隐含执行了一次flush操作，所以你<strong>不必</strong>在调用fclose之前调用fflush。</li>
+                        <li>int sprintf(char <em>s, const char * format, ...);
+                                sprintf函数把自己的输出和一个结尾空字符写到作为参数传递过来的字符串s里。这个字符串必须*</em>足够**容纳所有的输出数据。</li>
+                        <li>#include&lt;errno.h&gt;<br>extern int
+                            errno;<br>许多函数都可能改变errno的值。它的值只有在函数调用失败时才有意义。你必须在函数表明失败之后<strong>立即</strong>对其进行检查。你应该总是在使用它之前将它先复制到另一个变量中，因为像fprintf这样的输出函数本身就可能改变errno的值。
+                        </li>
+                        <li>调用fileno函数来确定文件流使用的是哪个底层文件描述符。它返回指定文件流使用的文件描述符，如失败就返回-1。如果你需要对一个已经打开的文件流进行<strong>底层访问</strong>时（例如，对它调用fstat），这个函数将很有用。<br>调用fdopen函数在一个已经打开的文件描述符上创建一个新的文件流，作用是为一个已经打开的文件描述符<strong>提供stdio缓冲区</strong>。
+                            <pre><code class="language-c">  <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;  </span></span>
+  <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fileno</span><span class="hljs-params">(FILE *stream)</span>  
+  FILE *<span class="hljs-title">fdopen</span><span class="hljs-params">(<span class="hljs-keyword">int</span> fildes, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *mode)</span>  </span></code></pre>
+                        </li>
+                    </ul>
+                    <h4 id="错误处理">错误处理</h4>
+                    <ul>
+                        <li>许多系统调用和函数都会因为各种各样的原因而失败，它们会在失败时设置外部变量errno的值来指明失败的原因。许多不同的函数库都把这个变量用做报告错误的标准方法。值得重申的是，程序必须在函数报告出错之后立刻检查errno变量，因为它可能被下一个函数调用覆盖，即使下一个函数自身并没有出错，也可能覆盖这个变量。<br>错误代码的取值和含义都列在头文件errno.h里，如下所示。
+                            <ul>
+                                <li>EPERM：操作不允许</li>
+                                <li>ENOENT：文件或目录不存在</li>
+                                <li>EINTER：系统调用被中断</li>
+                                <li>EIO：I/O错误</li>
+                                <li>EBUSY：设备或资源忙</li>
+                                <li>EEXIST：文件存在</li>
+                                <li>EINVAL：无效参数</li>
+                                <li>EMFILE：打开的文件过多</li>
+                                <li>ENODEV：设备不存在</li>
+                                <li>EISDIR：是一个目录</li>
+                                <li>ENOTDIR：不是一个目录</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>strerror和perror可以用来报告出现的错误 <ul>
+                                <li>strerror函数把错误代码映射为一个<strong>字符串</strong>，该字符串对发生的错误类型进行说明。这在记录错误条件时十分有用。函数原型如下：
+                                    <pre><code class="language-C"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;string.h&gt;  </span></span>
+<span class="hljs-function"><span class="hljs-keyword">char</span> *<span class="hljs-title">strerror</span><span class="hljs-params">(<span class="hljs-keyword">int</span> errnum)</span></span>;</code></pre>
+                                </li>
+                                <li>perror函数也把erron变量中报告的当前错误映射到一个字符串，并把它输出到<strong>标准错误输出流</strong>。该字符串的前面先加上字符串s（如果不为空）中给出的信息，再加上一个冒号和一个空格。函数原型如下：
+                                    <pre><code class="language-C"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;  </span></span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">perror</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *s)</span></span>;</code></pre>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h4 id="proc文件系统">/proc文件系统</h4>
+                    <ul>
+                        <li>Linux提供了一个特殊的文件系统procfs，它通常以/proc目录的形式呈现。该目录中包含了许多特殊文件用来对<strong>驱动程序</strong>和<strong>内核信息</strong>进行更高层的访问。只要应用程序有正确的访问权限，它们就可以通过读写这些文件来获得信息或设置参数。
+                        </li>
+                    </ul>
+                    <h4 id="程序参数">程序参数</h4>
+                    <ul>
+                        <li>getopt_long函数比getopt多两个参数。 <ul>
+                                <li>第一个附加参数是一个结构数组，它描述了每个长选项并告诉getopt_long如何处理它们。 </li>
+                                <li>第二个附加参数是一个变量指针，它可以作为optind的长选项版本使用。</li>
+                            </ul>
+                        </li>
+                        <li>长选项数组由一些类型为struct option的结构组成，每个结构描述了一个长选项的行为。该数组必须以一个包含<strong>全0</strong>的文件结尾。
+                            <pre><code class="language-c">  <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">option</span> {</span>
+      <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *name;   <span class="hljs-comment">//长选项的名字。缩写也可以接收</span>
+      <span class="hljs-keyword">int</span> has_arg;        <span class="hljs-comment">//是否带参数，0不带，1必带，2可选</span>
+      <span class="hljs-keyword">int</span> *flag;          <span class="hljs-comment">//设置为NULL表示当找到该选项时，返回val里给出的值</span>
+      <span class="hljs-keyword">int</span> val;            <span class="hljs-comment">//getopt_long为该选项返回的值</span>
+  };</code></pre>
+                            <h4 id="环境变量">环境变量</h4>
+                        </li>
+                        <li>C语言程序可以通过putenv和getenv函数来访问环境变量，在程序里的修改不会反映到外部环境中，因为变量的值不会从子进程（你的程序）传播到父进程（shell）
+                            <pre><code class="language-C"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-function"><span class="hljs-keyword">char</span> *<span class="hljs-title">getenv</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *name)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">putenv</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *<span class="hljs-built_in">string</span>)</span></span>;</code></pre>
+                            <h4 id="时间和日期">时间和日期</h4>
+                        </li>
+                        <li>strftime函数格式化timeptr指针指向的tm结构所表示的时间和日期，并将结果放在字符串s中。
+                            <pre><code class="language-C"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;time.h&gt;</span></span>
+<span class="hljs-function"><span class="hljs-keyword">size_t</span> <span class="hljs-title">strftime</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *s, <span class="hljs-keyword">size_t</span> maxsize, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *format, struct tm *timeptr)</span></span>;</code></pre>
+                        </li>
+                        <li>strptime函数以一个代表日期和时间的字符串为参数，并创建表示同一日期和时间的tm结构（GNU库在默认情况下并<strong>未声明</strong>strptime函数）：
+                            <pre><code class="language-C"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> _XOPEN_SOURCE</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;time.h&gt;</span></span>
+<span class="hljs-function"><span class="hljs-keyword">char</span> *<span class="hljs-title">strptime</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *buf, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *format, struct tm *timeptr)</span></span>;</code></pre>
+                            <h4 id="临时文件">临时文件</h4>
+                        </li>
+                        <li>应该在程序中使用“创建并打开”函数tmpfile和mkstemp，而不要使用tmpnam和mktemp。因为没有真正生成临时文件时，其他程序可能生成相同的文件名。</li>
+                    </ul>
+                    <h4 id="用户信息">用户信息</h4>
+                    <ul>
+                        <li>密码数据库结构passwd定义在头文件pwd.h中，用户全名字段可能<strong>不同</strong>，pw_gecos或pw_comment，这意味着不能给出一个统一的用法。
+                        </li>
+                        <li>getpwuid和getpwnam函数都返回一个指针，该指针指向某个用户对应的passwd结构
+                            <pre><code class="language-C"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;sys/types.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;pwd.h&gt;</span></span>
+<span class="hljs-function">struct passwd *<span class="hljs-title">getpwuid</span><span class="hljs-params">(<span class="hljs-keyword">uid_t</span> uid)</span></span>;
+<span class="hljs-function">struct passwd *<span class="hljs-title">getpwnam</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *name)</span></span>;</code></pre>
+                        </li>
+                    </ul>
+                    <h4 id="优先级">优先级</h4>
+                    <ul>
+                        <li>应用程序可以用getpriority和setpriority函数确定和更改它们（和其他程序）的优先级。被优先级函数检查或更改的进程可以用进程标识符、组标识符或用户来确定。</li>
+                        <li>默认的优先级是0，正数优先级用于后台任务，它们只在没有其他更高优先级的任务准备运行时才执行。<strong>负数</strong>优先级使一个程序运行<strong>更频繁</strong>，获得更多的CPU可用时间。优先级的有效范围是-20~+20。这很容易让人困惑，因为数值越高，执行优先级反而越低。
+                        </li>
+                    </ul>
+                    <h4 id="文件锁定">文件锁定</h4>
+                    <ul>
+                        <li>许多应用只需要能够针对某个资源创建一个锁文件即可。然后，其他程序就可以通过检查这个文件来判断它们自己是否被允许访问这个资源。</li>
+                        <li>锁文件只是<em>建议锁</em> 而不是<em>强制锁</em>
+                            。为创建一个用作<strong>锁指示器</strong>的文件，可以使用fcntl.h头文件中定义的open系统调用，并带上O_CREAT和O_EXCL标志。这样能够以一个原子操作同时完成两项工作：确定文件不存在，然后创建它。
+                        </li>
+                        <li>文件区域锁定
+                            <pre><code class="language-C">  <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fcntl</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> fildes, <span class="hljs-keyword">int</span> command, <span class="hljs-keyword">struct</span> flock *flock_structure</span>)</span>;</code></pre>
+                            <strong>command</strong><br> F_GETLK 用于获取fildes（第一个参数）打开的文件的锁信息<br> F_SETLK
+                            试图对fileds指向的文件的某个区域加锁或解锁<br> F_SETLKW 与F_SETLK命令作用相同，但在无法获取锁时，这个调用将等待直到可以获取锁（或收到一个信号）为止。<br>
+                            <strong>flock结构</strong><br> l_type 如果是共享（只读）锁则取值为F_RDLCK，如果是独占（写）锁则取值为F_WRLCK<br> l_whence
+                            SEEK_SET、SEEK_CUR、SEEK_END中的一个<br> l_start 感兴趣的文件区域的第一个字节的相对位置<br> l_len 感兴趣的文件区域的字节数<br>
+                            l_pid 持有锁的进程的标识符
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
