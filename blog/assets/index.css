@@ -33,7 +33,9 @@ html {
 body {
   height: 100%;
 }
-
+h1 {
+    font-size: medium;
+}
 #header {
   position: fixed;
   top: 0;
