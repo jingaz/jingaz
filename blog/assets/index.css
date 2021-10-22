@@ -36,6 +36,9 @@ body {
 h1 {
     font-size: medium;
 }
+h2 {
+    font-size: small;
+}
 #header {
   position: fixed;
   top: 0;
