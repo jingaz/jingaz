@@ -33,12 +33,7 @@ html {
 body {
   height: 100%;
 }
-h1 {
-    font-size: medium;
-}
-h2 {
-    font-size: small;
-}
+
 #header {
   position: fixed;
   top: 0;
@@ -188,7 +183,12 @@ ul > li {
 .icon-github:before {
   content: "\e601";
 }
-
+h1 {
+  font-size: medium;
+}
+h2 {
+  font-size: small;
+}
 @media screen and (max-width: 5000px) {
   #post .main {
     max-width: 50vw;
