@@ -21,7 +21,9 @@
 * {
   font-family: "Verdana", "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
 }
-
+pre {
+    background-color: gainsboro;
+}
 .iconfont {
   text-align: center;
   margin-left: -8px;
@@ -44,6 +46,9 @@
 }
 * {
   font-family: "Verdana", "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
+}
+pre {
+    background-color: gainsboro;
 }
 body,
 html {
