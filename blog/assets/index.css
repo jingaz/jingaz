@@ -98,7 +98,7 @@ h6 {
   font-weight: bolder;
   letter-spacing: -1px;
   line-height: 1.1;
-  font-size:medium;
+  font-size: medium;
   color: #222;
 }
 
@@ -135,7 +135,7 @@ body {
 }
 
 .content {
-  max-width: 600px;
+  max-width: 750px;
   padding-top: 30px;
   padding-bottom: 30px;
   width: 600px;
@@ -179,11 +179,11 @@ section,
 article {
   padding-top: 30px;
   padding-bottom: 30px;
-  width: 600px;
+  width: 750px;
   margin: auto;
 }
-article {
-  margin-top: 12px;
+.meta {
+  margin-bottom: 60px;
 }
 blockquote {
   margin: 50px 0 50px -24px;
@@ -269,6 +269,7 @@ article {
   line-height: 36px;
   text-align: center;
   overflow: hidden;
+  width: 750px;
 }
 
 .pagination p.date {
