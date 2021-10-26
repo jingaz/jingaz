@@ -7,6 +7,7 @@
     <title>关于我</title>
     <link rel="stylesheet" type="text/css" href="../assets/index.css">
     <link rel="stylesheet" type="text/css" href="../assets/solarized-dark.min.css">
+    <script src="http://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -36,16 +37,13 @@
                 </p>
                 <p>最喜欢的是：开源、砂糖桔、梨花猫；<br>最头痛的是口腔溃疡。</p>
                 <p>你可以通过邮箱联系我 <a href="mailto:jingaz@163.com">jingaz@163.com。</a>也可以在<a href="javascript:void(0);"
-                        onclick="(function(){
-                    alert('我的 Jami 标识符是：\n2918ca27a838bc8e643ff72bbddd8b5b41dc1f7e\n（已复制到剪贴板）');              
-    let dummy = document.createElement('textarea'); document.body.appendChild(dummy);
-                        dummy.value='2918ca27a838bc8e643ff72bbddd8b5b41dc1f7e' ; dummy.select();
-                        document.execCommand('copy'); document.body.removeChild(dummy); })()">
-                        Jami（分布式即时通讯软件）</a>上联系我</p>
+                        onclick="contract_me()">
+                        Jami</a>上联系我。</p>
             </div>
             <p class="date">
                 2020/03/15
-            </p>            
+            </p>
+
         </article>
         <div class="pagination">
             <span class="button button-disabled button-previous">上一篇：没有了</span>
@@ -53,5 +51,33 @@
         </div>
     </div>
 </body>
+<script>
+    function contract_me() {
+        Swal.fire({
+            title: '<a href="https://jami.net/">Jami</a>去中心化开源聊天工具',
+            text: "我的标识符是：2918ca27a838bc8e643ff72bbddd8b5b41dc1f7e",
+            imageUrl: '../media/jami.svg',
+            imageHeight: 60,
+            imageWidth: 60,
+            imageAlt: 'Jami icon',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '复制',
+            cancelButtonText: '取消',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let dummy = document.createElement('textarea'); document.body.appendChild(dummy);
+                dummy.value = '2918ca27a838bc8e643ff72bbddd8b5b41dc1f7e'; dummy.select();
+                document.execCommand('copy'); document.body.removeChild(dummy);
+                Swal.fire(
+                    '已复制!',
+                    '你可以在Jami上搜索添加我了',
+                    'success'
+                )
+            }
+        })
+    }
+</script>
 
 </html>
