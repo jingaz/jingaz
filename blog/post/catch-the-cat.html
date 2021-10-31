@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="cmn-hans">
+
+<head>
+    <meta content="text/html; charset=UTF-8">
+    <meta name="author" content="liujing">
+    <title>抓小猫</title>
+    <link rel="stylesheet" type="text/css" href="../assets/index.css">
+    <script src="../assets/phaser.min.js"></script>
+    <script src="../assets/catch-the-cat.js"></script>
+    <link rel="shortcut icon" href="../media/image.svg">
+</head>
+
+<body>
+    <div id="header">
+        <h1 id="title"><a href="../../index.html">jingaz</a></h1>
+        <div class="links">
+            <a href="https://jami.net/" target="_blank" title="在Jami上联系我：wqdks">
+                <div class="iconfont icon-circle"></div>
+            </a>
+            <a href="https://github.com/jingaz" target="_blank">
+                <div class="iconfont icon-github"></div>
+            </a>
+            <a href="about.html" target="_blank">
+                <div class="iconfont icon-author"></div>
+            </a>
+        </div>
+    </div>
+    <div class="content">
+        <article>
+            <script src="phaser.min.js"></script>
+            <script src="catch-the-cat.js"></script>
+            <div id="catch-the-cat" align="center"></div>
+            <script>
+                window.game = new CatchTheCatGame({
+                    w: 11,
+                    h: 11,
+                    r: 20,
+                    backgroundColor: 0xffffff,
+                    parent: 'catch-the-cat',
+                    statusBarAlign: 'center',
+                    credit: 'ljwonder',
+                });
+            </script>
+        </article>
+        <div class="pagination">
+            <a href="disguise.html" class="button button-previous">上一篇：阿里云盘分享文件类型伪装</a>
+            <span class="button button-disabled button-next">下一篇：没有了</span>
+        </div>
+    </div>
+</body>
+
+</html>
