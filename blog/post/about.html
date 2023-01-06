@@ -57,7 +57,7 @@
     function contact_me() {
         Swal.fire({
             title: '<a href="https://signal.org/">Signal</a>不仅提供各种常见的功能，还尤为注重隐私安全',
-            text: "我的ID是：(402)936-7115",
+            text: "复制链接，加入群组",
             imageUrl:'../media/Signal.png',
             imageHeight: 50,
             imageWidth: 150,
@@ -70,7 +70,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 let dummy = document.createElement('textarea'); document.body.appendChild(dummy);
-                dummy.value = '(402)936-7115'; dummy.select();
+                dummy.value = 'https://signal.group/#CjQKIFmIbz-v2zED43iww0kZ97ycq3XwusDKjFZiixdOhp7rEhD085tpflUxd6bbKz96MBkq'; dummy.select();
                 document.execCommand('copy'); document.body.removeChild(dummy);
                 Swal.fire(
                     '已复制!',
