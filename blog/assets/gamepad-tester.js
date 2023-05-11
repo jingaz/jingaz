@@ -84,14 +84,26 @@ function updateButtonOnGrid(index, value) {
   buttonMeter.setAttribute("y", meterPosition);
 }
 
+function calculateContrast(triggerPos) {
+  let contrast;
+  if (triggerPos < 0.2) {
+    contrast = triggerPos * 5;   // 0-20% �Աȶ�
+  } else if (triggerPos < 0.8) {
+    contrast = 10 + (triggerPos - 0.2) * 50;   // 20-70% �Աȶ�
+  } else {
+    contrast = 60 + (triggerPos - 0.8) * 40;   // 70-100% �Աȶ�
+  }
+  return contrast;
+}
+
 function updateControllerButton(index, value) {
   const button = document.getElementById(`controller-b${index}`);
   const selectedButtonClass = "selected-button";
-  1;
+  let contrast = calculateContrast(value);
   if (button) {
     if (value > 0) {
       button.classList.add(selectedButtonClass);
-      button.style.filter = `contrast(${value * 200}%)`;
+      button.style.filter = `contrast(${contrast}%)`;
     } else {
       button.classList.remove(selectedButtonClass);
       button.style.filter = `contrast(100%)`;
@@ -124,7 +136,7 @@ function updateAxesGrid(axes) {
 }
 
 function updateStick(elementId, leftRightAxis, upDownAxis) {
-  const multiplier = 25;
+  const multiplier = 17;
   const stickLeftRight = leftRightAxis * multiplier;
   const stickUpDown = upDownAxis * multiplier;
 
