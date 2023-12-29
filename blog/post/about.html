@@ -30,14 +30,14 @@
             <h1 id="title_text">关于我</h1>
             <div>
                 <p>&emsp;&emsp;你好，欢迎来到我的博客。</p>
-                <p>&emsp;&emsp;我的名字叫「刘京」，26岁，户籍河南省信阳市，未婚，目前在深圳从事固件编程方面的工作。</p>
-                <p>&emsp;&emsp;本科计算机科学与技术专业,16年毕业于广东工业大学，19年硕士毕业于武汉大学，研究方向是目标检测，平时喜欢看文献，打乒乓球。偶尔玩一下单机游戏，特长是男子1500m。</p>
+                <p>&emsp;&emsp;我的名字叫「刘京」，26岁，户籍河南省信阳市，未婚，目前在深圳从事SSD固件编程方面的工作。</p>
+                <p>&emsp;&emsp;本科计算机科学与技术专业,16年毕业于广东工业大学，19年硕士毕业于武汉大学，研究方向是目标检测，平时喜欢看文献，打乒乓球。偶尔玩一下单机游戏，特长是中长跑。</p>
                 <p>这是我</p>
                 <p><img src="../media/myself.jpg" alt="关于我.jpg">
                 </p>
                 <p>爱好：开源、研究厨艺、梨花猫；<br>最头痛的是口腔溃疡。</p>
                 <p>你可以通过邮箱联系我 <a href="mailto:jingsau@outlook.com">jingsau@outlook.com。</a>也可以在<a href="javascript:void(0);"
-                        onclick="contact_me()">Signal</a>上联系我。</p>
+                        onclick="contact_me()">Steam</a>上联系我。</p>
             </div>
             <p class="date">
                 2020/03/15
@@ -53,12 +53,12 @@
 <script>
     function contact_me() {
         Swal.fire({
-            title: '<a href="https://signal.org/">Signal</a>不仅提供各种常见的功能，还尤为注重隐私安全',
+            title: '在<a href="https://steamcommunity.com/id/wqdks">Steam</a>添加我联机玩游戏',
             text: "复制链接，加入群组",
-            imageUrl:'../media/Signal.png',
+            imageUrl: '../media/logo_steam.svg',
             imageHeight: 50,
             imageWidth: 150,
-            imageAlt: 'Signal icon',
+            imageAlt: 'Steam icon',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -67,11 +67,11 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 let dummy = document.createElement('textarea'); document.body.appendChild(dummy);
-                dummy.value = 'https://signal.group/#CjQKIFmIbz-v2zED43iww0kZ97ycq3XwusDKjFZiixdOhp7rEhD085tpflUxd6bbKz96MBkq'; dummy.select();
+                dummy.value = 'https://steamcommunity.com/id/wqdks'; dummy.select();
                 document.execCommand('copy'); document.body.removeChild(dummy);
                 Swal.fire(
                     '已复制!',
-                    '你可以在Signal上搜索添加我了',
+                    '你可以在Steam上搜索添加我了',
                     'success'
                 )
             }
