@@ -737,8 +737,8 @@ var bookshelf = {
             </div>
             </div>`)
             .hide()
-            .on("dblclick", function(event) {
-                // disable double click event inside bookshelf
+            .on("click", function(event) {
+                // disable click event inside bookshelf
                 event.stopPropagation();
             })
             .appendTo("#dropZone");
