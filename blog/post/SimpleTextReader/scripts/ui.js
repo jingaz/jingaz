@@ -11,6 +11,9 @@ if (isVariableDefined(dropZone)) {
 contentContainer.addEventListener('dragenter', function (event) {
     event.stopPropagation(); // 阻止 dragstart 事件冒泡到父元素
 });
+paginationContainer.addEventListener('dragenter', function (event) {
+    event.stopPropagation(); // 阻止 dragstart 事件冒泡到父元素
+});
 if (isVariableDefined(darkModeToggle)) {
     // localStorage.removeItem("UIMode");
     darkModeToggle.addEventListener("change", (e) => {
